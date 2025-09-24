@@ -467,16 +467,16 @@ init_thread (struct thread *t, const char *name, int priority) {
 	sema_init(&t->exit_sema, 0);
 	sema_init(&t->fork_sema,0);
 	list_init(&t->children_list);
-	
+	t->exit_status = 0;	
 
 	#endif
+
 
 	t->status = THREAD_BLOCKED;
 	strlcpy (t->name, name, sizeof t->name);
 	t->tf.rsp = (uint64_t) t + PGSIZE - sizeof (void *);
 	t->priority = priority;
 	t->eff_priority = priority;
-	t->exit_status = 0;
 	t->magic = THREAD_MAGIC;
 }
 
